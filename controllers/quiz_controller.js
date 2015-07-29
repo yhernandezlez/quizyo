@@ -10,14 +10,14 @@ exports.index = function(req,res) {
 
 // GET /quizes/:id
 exports.show = function(req, res) {
-	models.Quiz.findById(req.params.quizId).then(function(quiz) {	//yhl.cambié find por findById
+	models.Quiz.find(req.params.quizId).then(function(quiz) {	//yhl.cambié find por findById
 	res.render('quizes/show', { quiz: quiz});
 	})
 };
 
 // GET /quizes/:id/answer
 exports.answer = function(req, res) {
-	models.Quiz.findById(req.params.quizId).then(function(quiz) {	//yhl.cambié find por findById
+	models.Quiz.find(req.params.quizId).then(function(quiz) {	//yhl.cambié find por findById
 		if (req.query.respuesta ===  quiz.respuesta) {
 			res.render('quizes/answer', 
 						{ quiz: quiz, respuesta: 'Correcto'});
