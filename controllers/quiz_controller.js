@@ -15,11 +15,23 @@ exports.load = function(req, res, next, quizId){
 
 // GET /quizes
 exports.index = function(req,res) {
+//añadido P2P mod.7...
+	var busqueda = ('%' + req.query.search + '%').replace(/ /g,'%');
+		if (req.query.search) {
+			models.Quiz.findAll({where: ["pregunta like ?", busqueda],
+								 order: ['pregunta']}
+								 ).then(function(quizes){
+						res.render('quizes/index', { quizes: quizes, errors: []});
+		}).catch(function(error) {next(error);});
+	} 
+	else {
+//fin P2P mod.7	
 	models.Quiz.findAll().then(
 		function(quizes){
 			res.render('quizes/index', { quizes: quizes, errors: []});
 	}
    ).catch(function(error) { next(error);})
+  }
 };
 
 
